@@ -1,0 +1,127 @@
+ /* Background */
+ body {
+    background: linear-gradient(135deg, #f0f0f0, rgb(169, 209, 193)) !important;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Container for the card */
+.card-container {
+    background: #f0f0f0;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 800px; 
+    display: flex;
+    overflow: hidden;
+}
+
+/* Form section styling */
+.card-body {
+    flex: 1;
+    padding: 50px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-body h1 {
+    color: #7dc2a5;
+    font-size: 28px; 
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px; 
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.btn1 { 
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #7dc2a5; 
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+} 
+
+.btn1:hover { 
+    background-color: #448e60; 
+}
+
+input[type="file"] {
+    font-size: 14px;
+    border: none;
+    background-color: #f8f8f8;
+    color: #555;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+input[type="file"]:hover {
+    background-color: #e8e8e8;
+}
+
+
+.text-center {
+    text-align: center;
+    margin-top: 20px; 
+}
+
+.text-center a {
+    color: #448e60; 
+    font-family: 'Helvetica', sans-serif; 
+    font-weight: bold; 
+    text-decoration: none;
+}
+
+.text-center a:hover {
+    color: #7dc2a5; 
+    text-decoration: underline;
+}
+
+.btn-secondary1 {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #448e60; 
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-secondary1:hover {
+    background-color: #7dc2a5; 
+    color: #fff;
+}
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+

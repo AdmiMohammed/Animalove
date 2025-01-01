@@ -1,0 +1,157 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block head %}
+<style>
+    
+    /* Background */
+    body {
+        background: linear-gradient(135deg, #f0f0f0,rgb(169, 209, 193)) !important;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+
+
+    /* Container for the card */
+    .card-container {
+        background: #f0f0f0;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        width: 800px; 
+        height: 600px; 
+        display: flex;
+        overflow: hidden;
+    }
+
+    /* Image styling */
+    .card-img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+
+    .card-image {
+        flex: 1;
+        background: url('{{ asset("images/image14.jpg") }}') no-repeat center center / cover;
+    }
+
+    /* Form section styling */
+    .card-body {
+        flex: 1;
+        padding: 50px; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .card-body h1 {
+        color: #7dc2a5;
+        font-size: 28px; 
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 20px; 
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        background-color: #7dc2a5; 
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #448e60; 
+    }
+
+    /* Custom styling for checkbox */
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 15px; 
+    }
+
+    .checkbox-container input[type="checkbox"] {
+        margin-right: 10px;
+    }
+
+    .text-center {
+        text-align: center;
+        margin-top: 20px; 
+    }
+
+    .text-center a {
+        color: #448e60; 
+        font-family: 'Helvetica', sans-serif; 
+        font-weight: bold; 
+        text-decoration: none;
+    }
+
+    .text-center a:hover {
+        color: #7dc2a5; 
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="card-container">
+    <!-- Image Section -->
+    <div class="card-image"></div>
+    <!-- Form Section -->
+    <div class="card-body">
+        <h1>Inscription</h1>
+
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm) }}
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur :</label>
+                {{ form_widget(registrationForm.username, { 'attr': {'class': 'form-control', 'id': 'username'} }) }}
+            </div>
+            <div class="form-group">
+                <label for="email">Email :</label>
+                {{ form_widget(registrationForm.email, { 'attr': {'class': 'form-control', 'id': 'email'} }) }}
+            </div>
+            <div class="form-group">
+                <label for="plainPassword">Mot de passe :</label>
+                {{ form_widget(registrationForm.plainPassword, { 'attr': {'class': 'form-control', 'id': 'plainPassword'} }) }}
+            </div>
+            <div class="form-group checkbox-container">
+                {{ form_widget(registrationForm.agreeTerms, { 'attr': {'id': 'agreeTerms'} }) }}
+                <label for="agreeTerms">Acceptez-vous les termes ?</label>
+            </div>
+
+            <button type="submit" class="btn">S'inscrire</button>
+        {{ form_end(registrationForm) }}
+
+        <div class="text-center mt-3">
+            <a href="{{ path('app_login') }}">Déjà inscrit ? Connectez-vous</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

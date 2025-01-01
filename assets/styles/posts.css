@@ -1,0 +1,331 @@
+/* Style de la page */
+.page-title {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.btn-add {
+    background-color: #7dc2a5;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 12px;
+    transition: background-color 0.3s;
+    display: inline-block;
+    margin: 20px auto;
+    margin-top:100px;
+    margin-left:100px;
+}
+
+.btn-add:hover {
+    background-color: #448e60;
+    color: #fff;
+}
+
+/* Style des cartes */
+.custom-card {
+    border-radius: 15px;
+    border: 1px solid #e1e1e1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    background-color: #fff;
+    width: 100%; /* Ajuster la largeur de la carte */
+    max-width: 300px; /* Limiter la largeur maximale de la carte */
+    margin: 0 auto; /* Centrer la carte */
+}
+
+.animal-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.animal-name {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.5rem;
+    color: #448e60;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.btn-info {
+    background-color:  #7dc2a5;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 12px;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+    width: 100%;
+   
+}
+
+.btn-info:hover {
+    background-color:  #448e60 !important;
+    color: white;
+    
+}
+
+/* Style des boutons Modifier et Supprimer */
+.btn-action, .btn-danger {
+    font-size: 14px;
+    border-radius: 8px;
+    width: 48%;
+    margin: 0;
+}
+
+.btn-action {
+    background-color: #7dc2a5;
+    color: white;
+}
+
+.btn-action:hover {
+    background-color: #448e60;
+    color: white;
+}
+
+.btn-danger {
+    background-color: #f44336;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #d32f2f;
+    color: white;
+}
+
+/* Responsive design */
+@media (max-width: 767px) {
+    .container1 {
+        padding: 15px;
+    }
+
+    .col-md-4 {
+        width: 100%;
+    }
+
+    .btn-add {
+        width: auto;
+    }
+}
+
+/* Global Styles */
+body {
+    background: #f0f0f0 !important;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Navbar Styles */
+ .navbar {
+     position: absolute;
+     top: 0;
+     left: 0;
+     background: #7dc2a5; /* Couleur de la navbar */
+     display: flex;
+     align-items: center;
+     justify-content: flex-start; /* Aligner les éléments à gauche */
+     padding: 0.5rem 1rem; /* Réduire la hauteur de la navbar */
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     width: 100%;
+     z-index: 100;
+     margin: 0;
+ }
+ 
+ .navbar__logo img {
+     height: 60px; /* Réduire la hauteur du logo */
+     transition: all 0.3s ease;
+ }
+ 
+ .navbar__logo img:hover {
+     transform: scale(1.1);
+ }
+ 
+ /* Menu - Alignement et espacement */
+ .navbar__menu {
+     display: flex;
+     list-style: none;
+     padding: 0;
+     margin: 0;
+     align-items: center; /* Alignement vertical */
+     justify-content: flex-start; /* Aligner les éléments à gauche */
+     margin-left: auto; /* Décaler les éléments vers la droite */
+ }
+ 
+ .navbar__item {
+     margin: 0 30px; /* Espacement horizontal entre les éléments */
+ }
+ 
+ .navbar__link {
+     text-decoration: none;
+     color: #fff;
+     display: flex;
+     align-items: center;
+     transition: all 0.3s ease;
+     font-size: 1rem;
+     padding: 0.5rem 0; /* Ajouter une marge en haut et en bas */
+     text-decoration: none;
+ }
+ 
+ .navbar__link:hover {
+     color: #448e60;
+     text-decoration: none;
+ }
+ 
+ /* Agrandir l'image utilisateur */
+ .navbar__user-image {
+     width: 40px; /* Taille plus petite */
+     height: 40px;
+     border-radius: 50%;
+     object-fit: cover;
+     border: 2px solid #f0f0f0;
+     cursor: pointer;
+     transition: transform 0.3s ease;
+ }
+ 
+ .navbar__user-image:hover {
+     transform: scale(1.1);
+ }
+ 
+ /* Dropdown Menu */
+ .navbar__account {
+     position: relative;
+ }
+ 
+ .navbar__dropdown {
+     display: none;
+     position: absolute;
+     right: 0;
+     top: 50px;
+     background: #fff;
+     border: 1px solid #ddd;
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+     border-radius: 5px;
+     width: 150px;
+     z-index: 200;
+ }
+ 
+ .navbar__account:hover .navbar__dropdown {
+     display: block;
+ }
+ 
+ .navbar__dropdown a {
+     display: block;
+     padding: 10px;
+     text-decoration: none;
+     color: #333;
+     transition: background 0.3s ease;
+ }
+ 
+ .navbar__dropdown a:hover {
+     background: #f0f0f0;
+ }
+ 
+ /* Footer Styles */
+ .footer {
+     background: #7dc2a5;
+     color: #fff;
+     padding: 2rem;
+     text-align: left;
+     margin-top: auto; /* Assure que le footer est en bas */
+     margin: 0;
+ }
+ 
+ .footer__content {
+     display: flex;
+     justify-content: space-between;
+ }
+ 
+ .footer__column {
+     width: 45%;
+ }
+ 
+ .footer__logo {
+     max-height: 80px;
+ }
+ 
+ .footer__column h3 {
+     margin-top: 0;
+     font-size: 1.2rem;
+ }
+ 
+ .footer__column p {
+     font-size: 0.9rem;
+     line-height: 1.5;
+ }
+ 
+ .footer__column a {
+     color: #fff;
+     text-decoration: none;
+ }
+ 
+ .footer__column a:hover {
+     text-decoration: underline;
+ }
+ 
+ .footer__copyright {
+     text-align: center;
+     margin-top: 1rem;
+     font-size: 0.9rem;
+ }
+ 
+ /* Smooth Scroll */
+ html {
+     scroll-behavior: smooth;
+ }
+ 
+ /* Mobile menu (hamburger) */
+ .navbar__hamburger {
+     display: none;
+     flex-direction: column;
+     justify-content: space-around;
+     width: 30px;
+     height: 20px;
+     cursor: pointer;
+ }
+ 
+ .navbar__hamburger-line {
+     height: 3px;
+     background-color: #fff;
+     width: 100%;
+     border-radius: 5px;
+ }
+ 
+ .navbar__menu.active {
+     display: block; /* Montre le menu sur mobile */
+ }
+ 
+ @media (max-width: 768px) {
+     .navbar__menu {
+         display: none;
+         position: absolute;
+         top: 60px;
+         left: 0;
+         background: #7dc2a5;
+         width: 100%;
+         padding: 1rem;
+     }
+ 
+     .navbar__hamburger {
+         display: flex;
+     }
+ }

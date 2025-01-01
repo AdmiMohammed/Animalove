@@ -1,0 +1,162 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block head %}
+@import "~bootstrap/scss/bootstrap";
+<link rel="stylesheet" href="{{ asset('styles/home.css') }}">
+
+{% endblock %}
+
+{% block body %}
+    <!-- Navbar -->
+    <nav class="navbar">
+        <!-- Logo -->
+        <div class="navbar__logo">
+            <a href="{{ path('home') }}">
+                <img src="{{ asset('images/logo_navbar.png') }}" alt="Logo">
+            </a>
+        </div>
+    
+        <!-- Menu -->
+        <ul class="navbar__menu">
+            <li class="navbar__item"> 
+                <a href="{{ path('home') }}" class="navbar__link">Accueil</a>
+            </li> 
+            <li class="navbar__item"> 
+                <a href="{{ path('post') }}" class="navbar__link">Mes Publications</a> 
+            </li> 
+            <li class="navbar__item"> 
+                <a href="{{ path('favoris') }}" class="navbar__link">Mes Favoris</a> 
+            </li>
+    
+            <!-- Image utilisateur avec menu déroulant -->
+            <li class="navbar__item navbar__account">
+                <a href="#" class="navbar__link">
+                    {% if user %}
+                        <img src="{{ user.image ? asset('img_users/' ~ user.image) : asset('images/defaut.jpg') }}" alt="User Image" class="navbar__user-image">
+                    {% else %}
+                        <img src="{{ asset('images/defaut.jpg') }}" alt="Default Image" class="navbar__user-image">
+                    {% endif %}
+                </a>
+                <div class="navbar__dropdown">
+                    <a href="{{ path('app_space') }}">Votre espace</a>
+                    <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            </li>
+        </ul>
+    
+        <!-- Mobile menu toggle -->
+        <div class="navbar__hamburger" onclick="toggleMenu()">
+            <span class="navbar__hamburger-line"></span>
+            <span class="navbar__hamburger-line"></span>
+            <span class="navbar__hamburger-line"></span>
+        </div>
+    </nav>
+    
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.navbar__menu');
+            menu.classList.toggle('active');
+        }
+    </script>
+    
+    <!-- Content -->
+<h1 class="page-title">Publications</h1>
+
+<!-- Filtrage par type d'animal -->
+<form method="get" action="{{ path('home') }}" class="filter-form">
+    <label for="type_animal">Filtrer par type d'animal :</label>
+    <select name="type_animal" id="type_animal" class="filter-select">
+        <option value="">Tous les types</option>
+        <option value="chien" {% if type_animal == 'chien' %}selected{% endif %}>Chien</option>
+        <option value="chat" {% if type_animal == 'chat' %}selected{% endif %}>Chat</option>
+        <option value="autre" {% if type_animal == 'autre' %}selected{% endif %}>Autre</option>
+    </select>
+    <button type="submit" class="btn-add">Filtrer</button>
+</form>
+
+<!-- Affichage des publications avec pagination et favoris -->
+<div class="publications">
+    {% for post in publications %}
+        <div class="custom-card">
+            <img src="{{ asset('img_animals/' ~ post.image) }}" alt="{{ post.animalName }}" class="animal-img">
+            <h2 class="animal-name">{{ post.animalName }} </h2>
+            <p class="card-text"><strong>Race : </strong>{{ post.breed ?? 'Non précisé' }}</p>
+            <p class="card-text"><strong>Sexe : </strong>{{ post.gender ?? 'Non précisé' }}</p>
+            <p class="card-text"><strong>Âge : </strong>{{ post.age }} ans</p>
+            <p class="card-text"><strong>Disponibilité :</strong> 
+                {% if post.isAvailable %}
+                    Disponible
+                {% else %}
+                    Non disponible
+                {% endif %}
+            </p>
+            <p class="card-text"><strong>Propriétaire :</strong> {{ post.userId.username }}</p>
+           
+            <div class="button-group">
+                <a href="{{ path('post_savoir_plus', {'id': post.id}) }}" class="btn-info">Détails</a>
+                <form action="{{ path('ajouter_favoris', {'id': post.id}) }}" method="post">
+                    <button type="submit" class="btn-action">Ajouter aux favoris</button>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <p>Aucune publication trouvée.</p>
+    {% endfor %}
+</div>
+
+<!-- Pagination -->
+<div class="pagination">
+    {% if page > 1 %}
+        <a href="{{ path('home', {'page': page - 1, 'type_animal': type_animal}) }}" class="btn-info">Précédent</a>
+    {% endif %}
+
+    {% for i in 1..pages %}
+        <a href="{{ path('home', {'page': i, 'type_animal': type_animal}) }}" class="pagination-circle {% if i == page %}active{% endif %}">{{ i }}</a>
+    {% endfor %}
+
+    {% if page < pages %}
+        <a href="{{ path('home', {'page': page + 1, 'type_animal': type_animal}) }}" class="btn-info">Suivant</a>
+    {% endif %}
+</div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer__content">
+            <!-- Colonne 1: Définition de la plateforme -->
+            <div class="footer__column">
+                <img src="{{ asset('images/logo_navbar.png') }}" alt="Logo" class="footer__logo">
+                <p>MyApp est une plateforme dédiée à la gestion des annonces d'animaux à adopter, permettant aux utilisateurs de trouver facilement un animal à adopter ou de publier une annonce.</p>
+            </div>
+    
+            <!-- Colonne 2: Informations de contact -->
+            <div class="footer__column">
+                <h3>Contact</h3>
+                <p>Email: <a href="mailto:contact@myapp.com">AnimaLove@gmail.com</a></p>
+                <p>Adresse: rue 156 Hay Moritania, Oujda, Maroc</p>
+                <p>Téléphone: +212 7 70 57 16 76</p>
+            </div>
+        </div>
+        
+        <!-- Copyright centré -->
+        <div class="footer__copyright">
+            <p>&copy; {{ "now"|date("Y") }} AnimaLove. Tous droits réservés.</p>
+        </div>
+    </footer>
+    <script>
+    function reloadStylesheets() {
+        document.querySelectorAll('link[rel="stylesheet"]').forEach((link) => {
+            const newHref = link.href.split('?')[0] + '?v=' + new Date().getTime();
+            link.href = newHref;
+        });
+    }
+    
+    // Appelez cette fonction après chaque navigation ou modification
+    document.addEventListener("turbo:load", reloadStylesheets);
+</script>
+{% endblock %}
+{% block javascripts %}
+    {% block importmap %}{{ importmap('app') }}{% endblock %}
+   
+{% endblock %}

@@ -1,0 +1,159 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block head %}
+<style>
+    /* Background */
+    body {
+        background: linear-gradient(-135deg, #f0f0f0,rgb(169, 209, 193)) !important;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+    }
+
+    /* Container for the card */
+    .card-container {
+        background:  #f0f0f0;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        width: 800px; 
+        height: 600px; 
+        display: flex;
+        overflow: hidden;
+    }
+
+    /* Image styling */
+    .card-img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+
+    .card-image {
+        flex: 1;
+        background: url('{{ asset("images/image12.jpg") }}') no-repeat center center / cover;
+    }
+
+    /* Form section styling */
+    .card-body {
+        flex: 1;
+        padding: 50px; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .card-body h1 {
+        color: #7dc2a5;
+        font-size: 28px; 
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 20px; 
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        background-color: #7dc2a5;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #448e60;
+    }
+
+    .checkbox {
+        margin-top: 10px;
+        margin-bottom: 15px; 
+    }
+
+    .text-center {
+        text-align: center;
+        margin-top: 20px; 
+    }
+
+    .text-center a {
+        color: #448e60; 
+        font-family: 'Helvetica', sans-serif; 
+        font-weight: bold; 
+        text-decoration: none; 
+    }
+
+    .text-center a:hover {
+        color: #7dc2a5; 
+        text-decoration: underline; 
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="card-container">
+    <!-- Image Section -->
+    <div class="card-image"></div>
+    <!-- Form Section -->
+    <div class="card-body">
+        <h1>Connexion</h1>
+
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        <form method="post">
+            <div class="form-group">
+                <label for="inputEmail">Email : </label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPassword">Mot de passe : </label>
+                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Se souvenir de moi
+                </label>
+            </div>
+
+            <button class="btn btn-primary" type="submit">Se connecter</button>
+
+            <!-- Lien vers la page d'inscription -->
+            <div class="text-center mt-3">
+                <a href="{{ path('register') }}">Pas encore inscrit ? Créez un compte</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des publications{% endblock %}
+{% block head %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('styles/posts.css') }}">
+
+{% endblock %}
+
+        
+
+{% block body %}
+<!-- Navbar -->
+    <nav class="navbar">
+        <!-- Logo -->
+        <div class="navbar__logo">
+            <a href="{{ path('home') }}">
+                <img src="{{ asset('images/logo_navbar.png') }}" alt="Logo">
+            </a>
+        </div>
+    
+        <!-- Menu -->
+        <ul class="navbar__menu">
+            <li class="navbar__item"> 
+                <a href="{{ path('home') }}" class="navbar__link">Accueil</a>
+            </li> 
+            <li class="navbar__item"> 
+                <a href="{{ path('post') }}" class="navbar__link">Mes Publications</a> 
+            </li> 
+            <li class="navbar__item"> 
+                <a href="{{ path('favoris') }}" class="navbar__link">Mes Favoris</a> 
+            </li>
+    
+            <!-- Image utilisateur avec menu déroulant -->
+            <li class="navbar__item navbar__account">
+                <a href="#" class="navbar__link">
+                    {% if user %}
+                        <img src="{{ user.image ? asset('img_users/' ~ user.image) : asset('images/defaut.jpg') }}" alt="User Image" class="navbar__user-image">
+                    {% else %}
+                        <img src="{{ asset('images/defaut.jpg') }}" alt="Default Image" class="navbar__user-image">
+                    {% endif %}
+                </a>
+                <div class="navbar__dropdown">
+                    <a href="{{ path('app_space') }}">Votre espace</a>
+                    <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            </li>
+        </ul>
+    
+        <!-- Mobile menu toggle -->
+        <div class="navbar__hamburger" onclick="toggleMenu()">
+            <span class="navbar__hamburger-line"></span>
+            <span class="navbar__hamburger-line"></span>
+            <span class="navbar__hamburger-line"></span>
+        </div>
+    </nav>
+    
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.navbar__menu');
+            menu.classList.toggle('active');
+        }
+    </script>
+
+<div class="container1">
+    <!-- Bouton Ajouter une publication en haut -->
+    <a href="{{ path('ajouter_publication') }}" class="btn btn-add mb-4">Ajouter une publication</a>
+
+    <div class="row">
+        {% for post in posts %}
+            <div class="col-md-4 mb-4">
+                <div class="card custom-card">
+                    <!-- Affichage de l'image circulaire de l'animal -->
+                    <img src="{{ asset('img_animals/' ~ post.image) }}" class="card-img-top animal-img" alt="Image de l'animal">
+                    <div class="card-body text-center">
+                        <!-- Affichage du nom de l'animal avec un style mignon -->
+                        <h5 class="card-title animal-name">{{ post.animalName }}</h5>
+                        <!-- Informations sur l'animal -->
+                        <p class="card-text"><strong>Race : </strong>{{ post.breed ?? 'Non précisé' }}</p>
+                        <p class="card-text"><strong>Sexe : </strong>{{ post.gender ?? 'Non précisé' }}</p>
+                        <p class="card-text"><strong>Âge : </strong>{{ post.age }} ans</p>
+                        <p class="card-text"><strong>Disponibilité : </strong>{{ post.IsAvailable ? 'Disponible' : 'Indisponible' }}</p>
+
+                        <!-- Bouton "Détails" centré -->
+                        <div class="d-flex justify-content-center mt-3">
+                            <a href="{{ path('post_savoir_plus', {'id': post.id}) }}" class="btn btn-info">Détails</a>
+                        </div>
+
+                        <!-- Boutons Modifier et Supprimer sur la ligne suivante -->
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="{{ path('modifier_publication', {'id': post.id}) }}" class="btn btn-action">Modifier</a>
+                            <a href="{{ path('supprimer_publication', {'id': post.id}) }}" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette publication ?')">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer__content">
+        <!-- Colonne 1: Définition de la plateforme -->
+        <div class="footer__column">
+            <img src="{{ asset('images/logo_navbar.png') }}" alt="Logo" class="footer__logo">
+            <p>MyApp est une plateforme dédiée à la gestion des annonces d'animaux à adopter, permettant aux utilisateurs de trouver facilement un animal à adopter ou de publier une annonce.</p>
+        </div>
+
+        <!-- Colonne 2: Informations de contact -->
+        <div class="footer__column">
+            <h3>Contact</h3>
+            <p>Email: <a href="mailto:contact@myapp.com">AnimaLove@gmail.com</a></p>
+            <p>Adresse: rue 156 Hay Moritania, Oujda, Maroc</p>
+            <p>Téléphone: +212 7 70 57 16 76</p>
+        </div>
+    </div>
+    
+    <!-- Copyright centré -->
+    <div class="footer__copyright">
+        <p>&copy; {{ "now"|date("Y") }} AnimaLove. Tous droits réservés.</p>
+    </div>
+</footer>
+<script>
+    window.addEventListener('load', function() {
+        document.body.style.visibility = 'visible';
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}
+
