@@ -31,7 +31,7 @@
             </li>
     
             <!-- Image utilisateur avec menu déroulant -->
-            <li class="navbar__item navbar__account">
+            <li class="navbar_item navbar_account">
                 <a href="#" class="navbar__link">
                     {% if user %}
                         <img src="{{ user.image ? asset('img_users/' ~ user.image) : asset('images/defaut.jpg') }}" alt="User Image" class="navbar__user-image">
@@ -155,8 +155,4 @@
     // Appelez cette fonction après chaque navigation ou modification
     document.addEventListener("turbo:load", reloadStylesheets);
 </script>
-{% endblock %}
-{% block javascripts %}
-    {% block importmap %}{{ importmap('app') }}{% endblock %}
-   
 {% endblock %}
